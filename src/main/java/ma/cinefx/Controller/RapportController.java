@@ -1,4 +1,4 @@
 package ma.cinefx.Controller;
 
-public class FilmController {
+public class RapportController {
 }

@@ -1,4 +1,4 @@
 package ma.cinefx.Dao;
 
-public class RarifDAO {
+public class TarifDAO {
 }
