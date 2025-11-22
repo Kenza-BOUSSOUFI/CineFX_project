@@ -1,7 +1,7 @@
 package ma.cinefx.Model;
 
-
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Reservation")
@@ -11,11 +11,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "seance_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "seance_id", nullable = false)
     private Seance seance;
 
+    @Column(nullable = false)
     private String clientNom;
+
+    @Column(nullable = false)
     private int nbPlaces;
 
     public Reservation() {}
@@ -34,4 +37,29 @@ public class Reservation {
     public void setClientNom(String clientNom) { this.clientNom = clientNom; }
     public int getNbPlaces() { return nbPlaces; }
     public void setNbPlaces(int nbPlaces) { this.nbPlaces = nbPlaces; }
+
+    // toString pour debug facile
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", clientNom='" + clientNom + '\'' +
+                ", nbPlaces=" + nbPlaces +
+                ", seanceId=" + (seance != null ? seance.getId() : null) +
+                '}';
+    }
+
+    // equals & hashCode basés sur l'ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reservation)) return false;
+        Reservation that = (Reservation) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
